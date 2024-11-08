@@ -8,8 +8,8 @@
 
 ## Aluno
 
-- nome: 
-- matrícula: 
+- nome: Wesley costa da Silva 
+- matrícula: 20222014040017
 
 ## Respostas dos exercícios
 # Exercícios
