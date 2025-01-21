@@ -1,4 +1,4 @@
-# Chat Export
+# Threads com python by copilot
 
 **User:** monte uma função em python que ordene uma lista de números  
 **Assistant:** Claro! Aqui está uma função simples em Python que ordena uma lista de números usando o algoritmo de ordenação por seleção:
