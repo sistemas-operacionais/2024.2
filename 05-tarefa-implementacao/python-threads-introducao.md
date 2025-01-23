@@ -11,7 +11,6 @@
 **Threads** são unidades de execução dentro de um processo. Elas permitem que um programa realize múltiplas operações simultaneamente, o que pode melhorar a eficiência e o desempenho, especialmente em tarefas que envolvem I/O ou operações que podem ser paralelizadas.
 
 ## Código-fonte 1 : Gerando os números aleatórios
-
 ### Código Completo : Gerando os números aleatórios
 
 Aqui está o código completo para referência:
@@ -70,12 +69,51 @@ Por fim, imprimimos uma mensagem de confirmação para informar que a lista foi 
 print("A lista de 1000 números aleatórios foi exportada para o arquivo 'numeros_aleatorios.txt'.")
 ```
 
-### Conclusão
-
-Neste tutorial, aprendemos como gerar uma lista de números aleatórios em Python e exportá-la para um arquivo texto. Este é um exemplo simples, mas útil, de como manipular dados e arquivos em Python.
-
 
 ## Código fonte 2 : Soma Sequencial
+### Código Completo : Soma sequencial
+
+```python
+# Função para ler números de um arquivo texto
+def ler_numeros_do_arquivo(nome_arquivo):
+    with open(nome_arquivo, 'r') as arquivo:
+        numeros = [int(linha.strip()) for linha in arquivo]
+    return numeros
+
+# Função para somar os números
+def soma_sequencial(numeros):
+    return sum(numeros)
+
+# Nome do arquivo
+nome_arquivo = 'numeros_aleatorios.txt'
+
+# Ler os números do arquivo
+numeros = ler_numeros_do_arquivo(nome_arquivo)
+
+# Calcular a soma sequencial
+resultado_soma = soma_sequencial(numeros)
+
+print(f"Soma sequencial: {resultado_soma}")
+```
+
+### Passo 1. Definir a função `ler_numeros_do_arquivo`
+    - Abre o arquivo `numeros_aleatorios.txt` em modo de leitura (`'r'`).
+    - Lê cada linha do arquivo, remove espaços em branco com `strip()`, converte para inteiro e armazena na lista `numeros`.
+
+### Passo 2. Definir a função `soma_sequencial`
+    - Recebe a lista de números e retorna a soma de todos os elementos usando a função `sum()`.
+
+### Passo 3. Definir constante com o nome do arquivo
+    - Define o nome do arquivo como `numeros_aleatorios.txt`.
+
+### Passo 4. Ler os números do arquivo
+    - Chama a função `ler_numeros_do_arquivo` para ler os números do arquivo e armazená-los na variável `numeros`.
+
+### Passo 5. Chama a função `soma_sequencial` para calcular a soma sequencial
+    - Chama a função `soma_sequencial` com parâmetro `numeros` para calcular a soma dos números lidos do arquivo.
+
+### Passo 6. Imprimir o resultado
+    - Imprime o resultado da soma sequencial.
 
 
 
