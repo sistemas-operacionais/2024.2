@@ -70,7 +70,7 @@ print("A lista de 1000 números aleatórios foi exportada para o arquivo 'numero
 ```
 
 
-## Código fonte 2 : Soma Sequencial
+## Código-fonte 2 : Soma Sequencial
 ### Código Completo : Soma sequencial
 
 ```python
@@ -117,100 +117,159 @@ print(f"Soma sequencial: {resultado_soma}")
 
 
 
-## Exemplo 2: Soma com 2 Threads
+## Código-fonte 3: Soma com 2 tarefas
+### Código-fonte 3: Soma com 2 tarefas - Algoritmo base
+1. função para transferir números do arquivo para uma lista
+2. funçao para somar números de uma lista
+3. chama a função para transferir números para lista
+4. divide a lista em 2 partes
+5. cria 2 tarefas, cada uma com uma parte da lista de números
+6. executa as 2 tarefas
+7. soma o resultado final e imprime
 
-Agora, vamos dividir a soma em 2 threads.
+### Código-fonte 3: Soma com 2 tarefas - Implementação sequencial
+```python
+# 1. função para transferir números do arquivo para uma lista
+def ler_numeros_do_arquivo(nome_arquivo):
+    with open(nome_arquivo, 'r') as arquivo:
+        numeros = [int(linha.strip()) for linha in arquivo]
+    return numeros
 
+# 2. funçao para somar números de uma lista
+def soma_numeros(numeros):
+    return sum(numeros)
+
+# 3. chama a função para transferir números para lista
+nome_arquivo = 'numeros_aleatorios.txt'
+numeros = ler_numeros_do_arquivo(nome_arquivo)
+
+# 4. divide a lista em 2 partes
+metade = len(numeros) // 2
+numeros_parte_1 = numeros[:metade]
+numeros_parte_2 = numeros[metade:]
+resultados = [0, 0]
+
+# 5. cria 2 tarefas, cada uma com uma parte da lista de números
+# 6. executa as 2 tarefas
+resultados[0] = soma_numeros(numeros_parte_1)
+resultados[1] = soma_numeros(numeros_parte_2)
+
+# 7. soma o resultado final e imprime
+resultado = soma_numeros(resultados)
+print(f"A soma dos números é: {resultado}")
+```
+
+### Código-fonte 3: Soma com 2 tarefas - Threads
 ```python
 import threading
 
-def soma_parcial(numeros, resultado, indice):
-    resultado[indice] = sum(numeros)
+class MinhaThread(threading.Thread):
+    def __init__(self, numeros):
+        threading.Thread.__init__(self)
+        self.numeros = numeros
+        self.resultado = 0
 
-# Dividir a lista em duas partes
+    def run(self):
+        self.resultado = soma_numeros(self.numeros)
+
+# 1. função para transferir números do arquivo para uma lista
+def ler_numeros_do_arquivo(nome_arquivo):
+    with open(nome_arquivo, 'r') as arquivo:
+        numeros = [int(linha.strip()) for linha in arquivo]
+    return numeros
+
+# 2. funçao para somar números de uma lista
+def soma_numeros(numeros):
+    return sum(numeros)
+
+# 3. chama a função para transferir números para lista
+nome_arquivo = 'numeros_aleatorios.txt'
+numeros = ler_numeros_do_arquivo(nome_arquivo)
+
+# 4. divide a lista em 2 partes
 metade = len(numeros) // 2
-resultado = [0, 0]
+numeros_parte_1 = numeros[:metade]
+numeros_parte_2 = numeros[metade:]
+resultados = [0, 0]
 
-# Criar duas threads
-thread1 = threading.Thread(target=soma_parcial, args=(numeros[:metade], resultado, 0))
-thread2 = threading.Thread(target=soma_parcial, args=(numeros[metade:], resultado, 1))
+# 5. cria 2 tarefas, cada uma com uma parte da lista de números
+thread_1 = MinhaThread(numeros_parte_1)
+thread_2 = MinhaThread(numeros_parte_2)
 
-# Iniciar as threads
-thread1.start()
-thread2.start()
+# 6. executa as 2 tarefas
+### solicita execução do método run() da thread
+thread_1.start()
+thread_2.start()
+### aguarda o fim da execução do método run() da thread
+thread_1.join()
+thread_2.join()
+### recupera valor do resultado da execução
+resultados[0] = thread_1.resultado
+resultados[1] = thread_2.resultado
 
-# Esperar as threads terminarem
-# ponto de sincronização
-thread1.join()
-thread2.join()
-
-# Soma total
-soma_total = sum(resultado)
-print(f"Soma com 2 threads: {soma_total}")
+# 7. soma o resultado final e imprime
+resultado = soma_numeros(resultados)
+print(f"A soma dos números é: {resultado}")
 ```
 
-## Exemplo 3: Soma com 4 Threads
-
-Vamos agora dividir a soma em 4 threads.
-
+### Código-fonte 3: Soma com 2 tarefas - Pool
 ```python
-# Dividir a lista em quatro partes
-quarto = len(numeros) // 4
-resultado = [0] * 4
+from concurrent.futures import ThreadPoolExecutor
 
-# Criar quatro threads
-threads = []
-for i in range(4):
-    inicio = i * quarto
-    fim = (i + 1) * quarto if i != 3 else len(numeros)
-    thread = threading.Thread(target=soma_parcial, args=(numeros[inicio:fim], resultado, i))
-    threads.append(thread)
+import threading
 
-# Iniciar as threads
-for thread in threads:
-    thread.start()
+class MinhaThread(threading.Thread):
+    def __init__(self, numeros):
+        threading.Thread.__init__(self)
+        self.numeros = numeros
+        self.resultado = 0
 
-# Esperar as threads terminarem
-for thread in threads:
-    thread.join()
+    def run(self):
+        self.resultado = soma_numeros(self.numeros)
 
-# Soma total
-soma_total = sum(resultado)
-print(f"Soma com 4 threads: {soma_total}")
+# 1. função para transferir números do arquivo para uma lista
+def ler_numeros_do_arquivo(nome_arquivo):
+    with open(nome_arquivo, 'r') as arquivo:
+        numeros = [int(linha.strip()) for linha in arquivo]
+    return numeros
+
+# 2. funçao para somar números de uma lista
+def soma_numeros(numeros):
+    return sum(numeros)
+
+# 3. chama a função para transferir números para lista
+nome_arquivo = 'numeros_aleatorios.txt'
+numeros = ler_numeros_do_arquivo(nome_arquivo)
+
+# 4. divide a lista em 2 partes
+metade = len(numeros) // 2
+numeros_parte_1 = numeros[:metade]
+numeros_parte_2 = numeros[metade:]
+resultados = [0, 0]
+
+# Usar ThreadPoolExecutor para gerenciar threads
+with ThreadPoolExecutor(max_workers=2) as executor:
+# 5. cria 2 tarefas, cada uma com uma parte da lista de números
+    futuro1 = executor.submit(soma_numeros, numeros_parte_1)
+    futuro2 = executor.submit(soma_numeros, numeros_parte_2)
+
+# 6. executa as 2 tarefas
+    resultados[0] = futuro1.result()
+    resultados[1] = futuro2.result()
+
+# 7. soma o resultado final e imprime
+resultado = soma_numeros(resultados)
+print(f"A soma dos números é: {resultado}")
 ```
 
-## Exemplo 4: Soma com 10 Threads
+## Código-fonte 4: Soma com 4 tarefas
 
-Finalmente, vamos dividir a soma em 10 threads.
 
-```python
-# Dividir a lista em dez partes
-decimo = len(numeros) // 10
-resultado = [0] * 10
+## Código-fonte 5: Soma com 10 tarefas
 
-# Criar dez threads
-threads = []
-for i in range(10):
-    inicio = i * decimo
-    fim = (i + 1) * decimo if i != 9 else len(numeros)
-    thread = threading.Thread(target=soma_parcial, args=(numeros[inicio:fim], resultado, i))
-    threads.append(thread)
 
-# Iniciar as threads
-for thread in threads:
-    thread.start()
+# Links importantes
+- [Python documentation](https://docs.python.org/)
+  - [ThreadPoolExecutor](https://docs.python.org/3/library/concurrent.futures.html#concurrent.futures.ThreadPoolExecutor)
+  - [Executor](https://docs.python.org/3/library/concurrent.futures.html#concurrent.futures.Executor)
 
-# Esperar as threads terminarem
-for thread in threads:
-    thread.join()
-
-# Soma total
-soma_total = sum(resultado)
-print(f"Soma com 10 threads: {soma_total}")
-```
-
-## Conclusão
-
-Neste exemplo, vimos como utilizar threads em Python para paralelizar a soma de um conjunto de números. Começamos com uma soma sequencial e evoluímos para somas utilizando 2, 4 e 10 threads. Isso demonstra como podemos dividir tarefas em partes menores e executá-las simultaneamente para melhorar a eficiência.
-
-Se tiver alguma dúvida ou quiser explorar mais sobre threads, sinta-se à vontade para perguntar!
