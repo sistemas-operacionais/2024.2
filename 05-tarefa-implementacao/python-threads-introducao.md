@@ -10,9 +10,11 @@
 
 **Threads** são unidades de execução dentro de um processo. Elas permitem que um programa realize múltiplas operações simultaneamente, o que pode melhorar a eficiência e o desempenho, especialmente em tarefas que envolvem I/O ou operações que podem ser paralelizadas.
 
-## Exemplo 1: Soma Sequencial
+## Código-fonte 1 : Gerando os números aleatórios
 
-Primeiro, vamos somar 1000 números sequencialmente.
+### Código Completo : Gerando os números aleatórios
+
+Aqui está o código completo para referência:
 
 ```python
 import random
@@ -20,13 +22,62 @@ import random
 # Gerar uma lista de 1000 números aleatórios
 numeros = [random.randint(1, 100) for _ in range(1000)]
 
-# Soma sequencial
-def soma_sequencial(numeros):
-    return sum(numeros)
+# Exportar a lista para um arquivo texto
+with open('numeros_aleatorios.txt', 'w') as arquivo:
+    for numero in numeros:
+        arquivo.write(f"{numero}\n")
 
-resultado = soma_sequencial(numeros)
-print(f"Soma sequencial: {resultado}")
+print("A lista de 1000 números aleatórios foi exportada para o arquivo 'numeros_aleatorios.txt'.")
 ```
+
+### Passo 1: Importar o Módulo `random`
+
+Primeiro, precisamos importar o módulo `random`, que contém funções para gerar números aleatórios.
+
+```python
+import random
+```
+
+### Passo 2: Gerar a Lista de Números Aleatórios
+
+Usamos uma list comprehension para gerar uma lista de 1000 números aleatórios entre 1 e 100. A função `random.randint(a, b)` retorna um número inteiro aleatório `N` tal que `a <= N <= b`.
+
+```python
+numeros = [random.randint(1, 100) for _ in range(1000)]
+```
+
+Aqui, `random.randint(1, 100)` gera um número aleatório entre 1 e 100, e o loop `for _ in range(1000)` repete isso 1000 vezes para criar a lista.
+
+### Passo 3: Exportar a Lista para um Arquivo Texto
+
+Abrimos um arquivo texto em modo de escrita (`'w'`) usando a função `open()`. Em seguida, escrevemos cada número da lista no arquivo, cada um em uma nova linha.
+
+```python
+with open('numeros_aleatorios.txt', 'w') as arquivo:
+    for numero in numeros:
+        arquivo.write(f"{numero}\n")
+```
+
+- `with open('numeros_aleatorios.txt', 'w') as arquivo:` abre o arquivo `numeros_aleatorios.txt` para escrita. O uso do `with` garante que o arquivo será fechado corretamente após a escrita.
+- `for numero in numeros:` itera sobre cada número na lista `numeros`.
+- `arquivo.write(f"{numero}\n")` escreve o número no arquivo seguido por uma nova linha (`\n`).
+
+### Passo 4: Mensagem de Confirmação
+
+Por fim, imprimimos uma mensagem de confirmação para informar que a lista foi exportada com sucesso.
+
+```python
+print("A lista de 1000 números aleatórios foi exportada para o arquivo 'numeros_aleatorios.txt'.")
+```
+
+### Conclusão
+
+Neste tutorial, aprendemos como gerar uma lista de números aleatórios em Python e exportá-la para um arquivo texto. Este é um exemplo simples, mas útil, de como manipular dados e arquivos em Python.
+
+
+## Código fonte 2 : Soma Sequencial
+
+
 
 ## Exemplo 2: Soma com 2 Threads
 
