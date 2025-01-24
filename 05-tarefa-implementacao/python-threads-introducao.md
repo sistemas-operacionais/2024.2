@@ -255,37 +255,42 @@ print(f"A soma dos números é: {resultado}")
 ```python
 import asyncio
 
-# Função assíncrona para somar números de uma lista
+# 1. função para transferir números do arquivo para uma lista
 async def soma_numeros(numeros):
     return sum(numeros)
 
 # Função principal assíncrona
 async def main():
+
+# 2. funçao para somar números de uma lista
     # Função para ler números de um arquivo texto e transferir para uma lista
     def ler_numeros_do_arquivo(nome_arquivo):
         with open(nome_arquivo, 'r') as arquivo:
             numeros = [int(linha.strip()) for linha in arquivo]
         return numeros
 
+# 3. chama a função para transferir números para lista
     # Nome do arquivo
     nome_arquivo = 'numeros_aleatorios.txt'
     # Chama a função para transferir números para lista
     numeros = ler_numeros_do_arquivo(nome_arquivo)
 
+# 4. divide a lista em 2 partes
     # Divide a lista em 2 partes
     metade = len(numeros) // 2
     numeros_parte_1 = numeros[:metade]
     numeros_parte_2 = numeros[metade:]
     resultados = [0, 0]
 
+# 5. cria 2 tarefas, cada uma com uma parte da lista de números
     # Cria duas tarefas assíncronas
     tarefa1 = soma_numeros(numeros_parte_1)
     tarefa2 = soma_numeros(numeros_parte_2)
 
-    # Executa as tarefas e obtém os resultados
+# 6. executa as 2 tarefas
     resultados[0], resultados[1] = await asyncio.gather(tarefa1, tarefa2)
 
-    # Soma o resultado final e imprime
+# 7. soma o resultado final e imprime
     soma_total = await soma_numeros(resultados)
     print(f"Soma total: {soma_total}")
 
