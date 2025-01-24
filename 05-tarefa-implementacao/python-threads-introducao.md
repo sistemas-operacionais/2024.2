@@ -216,17 +216,6 @@ print(f"A soma dos números é: {resultado}")
 ```python
 from concurrent.futures import ThreadPoolExecutor
 
-import threading
-
-class MinhaThread(threading.Thread):
-    def __init__(self, numeros):
-        threading.Thread.__init__(self)
-        self.numeros = numeros
-        self.resultado = 0
-
-    def run(self):
-        self.resultado = soma_numeros(self.numeros)
-
 # 1. função para transferir números do arquivo para uma lista
 def ler_numeros_do_arquivo(nome_arquivo):
     with open(nome_arquivo, 'r') as arquivo:
@@ -264,6 +253,44 @@ print(f"A soma dos números é: {resultado}")
 
 ### Código-fonte 6: Soma com 2 tarefas - asyncio
 ```python
+import asyncio
+
+# Função assíncrona para somar números de uma lista
+async def soma_numeros(numeros):
+    return sum(numeros)
+
+# Função principal assíncrona
+async def main():
+    # Função para ler números de um arquivo texto e transferir para uma lista
+    def ler_numeros_do_arquivo(nome_arquivo):
+        with open(nome_arquivo, 'r') as arquivo:
+            numeros = [int(linha.strip()) for linha in arquivo]
+        return numeros
+
+    # Nome do arquivo
+    nome_arquivo = 'numeros_aleatorios.txt'
+    # Chama a função para transferir números para lista
+    numeros = ler_numeros_do_arquivo(nome_arquivo)
+
+    # Divide a lista em 2 partes
+    metade = len(numeros) // 2
+    numeros_parte_1 = numeros[:metade]
+    numeros_parte_2 = numeros[metade:]
+    resultados = [0, 0]
+
+    # Cria duas tarefas assíncronas
+    tarefa1 = soma_numeros(numeros_parte_1)
+    tarefa2 = soma_numeros(numeros_parte_2)
+
+    # Executa as tarefas e obtém os resultados
+    resultados[0], resultados[1] = await asyncio.gather(tarefa1, tarefa2)
+
+    # Soma o resultado final e imprime
+    soma_total = await soma_numeros(resultados)
+    print(f"Soma total: {soma_total}")
+
+# Executa o loop de eventos
+asyncio.run(main())
 ```
 
 
