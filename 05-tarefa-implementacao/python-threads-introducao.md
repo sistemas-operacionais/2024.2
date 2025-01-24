@@ -70,8 +70,8 @@ print("A lista de 1000 números aleatórios foi exportada para o arquivo 'numero
 ```
 
 
-## Código-fonte 2 : Soma Sequencial
-### Código Completo : Soma sequencial
+## Soma Sequencial de lista de números
+### Código-fonte 2 : Soma sequencial - código-fonte completo
 
 ```python
 # Função para ler números de um arquivo texto
@@ -117,8 +117,8 @@ print(f"Soma sequencial: {resultado_soma}")
 
 
 
-## Código-fonte 3: Soma com 2 tarefas
-### Código-fonte 3: Soma com 2 tarefas - Algoritmo base
+## Soma com 2 tarefas de uma lista de números
+### Soma com 2 tarefas - Algoritmo base
 1. função para transferir números do arquivo para uma lista
 2. funçao para somar números de uma lista
 3. chama a função para transferir números para lista
@@ -159,7 +159,7 @@ resultado = soma_numeros(resultados)
 print(f"A soma dos números é: {resultado}")
 ```
 
-### Código-fonte 3: Soma com 2 tarefas - Threads
+### Código-fonte 4: Soma com 2 tarefas - Threads
 ```python
 import threading
 
@@ -212,7 +212,7 @@ resultado = soma_numeros(resultados)
 print(f"A soma dos números é: {resultado}")
 ```
 
-### Código-fonte 3: Soma com 2 tarefas - Pool
+### Código-fonte 5: Soma com 2 tarefas - Pool
 ```python
 from concurrent.futures import ThreadPoolExecutor
 
@@ -262,14 +262,28 @@ resultado = soma_numeros(resultados)
 print(f"A soma dos números é: {resultado}")
 ```
 
-## Código-fonte 4: Soma com 4 tarefas
+### Código-fonte 6: Soma com 2 tarefas - asyncio
+```python
+```
 
 
-## Código-fonte 5: Soma com 10 tarefas
+## Tarefa de hoje
+Escolha uma das formas de implementação em python para o código-fonte 7 e outro para o 8.
+
+Lembrando as formas: Threads, Pool, ou asyncio.
+
+### Código-fonte 7: Soma com 4 tarefas
+
+
+### Código-fonte 8: Soma com 10 tarefas
 
 
 # Links importantes
 - [Python documentation](https://docs.python.org/)
-  - [ThreadPoolExecutor](https://docs.python.org/3/library/concurrent.futures.html#concurrent.futures.ThreadPoolExecutor)
-  - [Executor](https://docs.python.org/3/library/concurrent.futures.html#concurrent.futures.Executor)
+  - [asyncio - Asynchronous I/O](https://docs.python.org/3/library/asyncio.html)- 
+  - [concurrent.futures — Launching parallel tasks](https://docs.python.org/3/library/concurrent.futures.html)
+    - [ThreadPoolExecutor](https://docs.python.org/3/library/concurrent.futures.html#concurrent.futures.ThreadPoolExecutor)
+    - [Executor](https://docs.python.org/3/library/concurrent.futures.html#concurrent.futures.Executor)
+  - [threading — Thread-based parallelism](https://docs.python.org/3/library/threading.html)
+    - [Thread](https://docs.python.org/3/library/threading.html#threading.Thread)
 
