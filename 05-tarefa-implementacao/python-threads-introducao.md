@@ -97,23 +97,23 @@ print(f"Soma sequencial: {resultado_soma}")
 ```
 
 ### Passo 1. Definir a função `ler_numeros_do_arquivo`
-    - Abre o arquivo `numeros_aleatorios.txt` em modo de leitura (`'r'`).
-    - Lê cada linha do arquivo, remove espaços em branco com `strip()`, converte para inteiro e armazena na lista `numeros`.
+- Abre o arquivo `numeros_aleatorios.txt` em modo de leitura (`'r'`).
+- Lê cada linha do arquivo, remove espaços em branco com `strip()`, converte para inteiro e armazena na lista `numeros`.
 
 ### Passo 2. Definir a função `soma_sequencial`
-    - Recebe a lista de números e retorna a soma de todos os elementos usando a função `sum()`.
+- Recebe a lista de números e retorna a soma de todos os elementos usando a função `sum()`.
 
 ### Passo 3. Definir constante com o nome do arquivo
-    - Define o nome do arquivo como `numeros_aleatorios.txt`.
+- Define o nome do arquivo como `numeros_aleatorios.txt`.
 
 ### Passo 4. Ler os números do arquivo
-    - Chama a função `ler_numeros_do_arquivo` para ler os números do arquivo e armazená-los na variável `numeros`.
+- Chama a função `ler_numeros_do_arquivo` para ler os números do arquivo e armazená-los na variável `numeros`.
 
 ### Passo 5. Chama a função `soma_sequencial` para calcular a soma sequencial
-    - Chama a função `soma_sequencial` com parâmetro `numeros` para calcular a soma dos números lidos do arquivo.
+- Chama a função `soma_sequencial` com parâmetro `numeros` para calcular a soma dos números lidos do arquivo.
 
 ### Passo 6. Imprimir o resultado
-    - Imprime o resultado da soma sequencial.
+- Imprime o resultado da soma sequencial.
 
 
 
