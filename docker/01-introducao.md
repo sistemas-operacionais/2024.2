@@ -74,3 +74,43 @@ docker run --rm meu_app_python
 
 Isso deve exibir a mensagem "Olá, Docker!" no terminal.
 
+### 4. Comandos básicos
+- imagens
+  - `docker image list`
+  - `docker image pull <nome da imagem>`
+- contêiner
+  - `docker container ls <parâmetros>`
+    - parâmetros
+      - `-a` : lista todos os contêineres, inclusive os desligados
+      - `-l` : lista os últimos contêineres, inclusive os desligados
+      - `-n` : lista os últimos N contêineres, inclusive os desligados
+      - `-q` : lista apenas os ids dos contêineres, ótimo para utilização em scripts
+  - `docker container run <parâmetros> <imagem> <CMD> <argumentos>`
+    - parâmetros
+      - `-d` : execução do contêiner em background
+      - `-i` : modo interativo. Mantém o STDIN aberto mesmo sem console anexado
+      - `-t` : aloca uma pseudo TTY
+      - `--rm` : automaticamente remove o contêiner após finalização (Não funciona com -d)
+      - `--name` : nomear o contêiner
+      - `-v` : mapeamento de volume
+      - `-p` : mapeamento de porta
+      - `-m` : limitar o uso de memória RAM
+      - `-c` : balancear o uso de CPU
+    - exemplos:
+      - `docker container run -it --rm --name meu_python python bash`
+      - `docker container run -it --rm -v "./src:/app" python`
+      - `docker container run -it --rm -p 80:8080 python`
+  - `docker container start <nome do conteiner>`
+  - `docker container stop <nome do conteiner>`
+
+
+## Link de referências
+
+- [docker](https://www.docker.com/)
+  - [Get started](https://docs.docker.com/get-started/)
+  - [Guides](https://docs.docker.com/guides/)
+  - [Manuals](https://docs.docker.com/manuals/)
+  - [Reference documentation](https://docs.docker.com/reference/)
+- Livros gratuitos
+  - [Docker para desenvolvedores](https://github.com/gomex/docker-para-desenvolvedores)
+    - [Comandos básicos cli docker](https://github.com/gomex/docker-para-desenvolvedores/blob/master/manuscript/comandos.md)
