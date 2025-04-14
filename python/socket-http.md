@@ -13,6 +13,53 @@
 
 ### 1. Servidor HTTP sem thread
 
+1.1. Implementação
+
+```python
+import http.server
+
+# Definir o conteúdo HTML fixo
+html_fixo = """
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Servidor HTTP</title>
+</head>
+<body>
+    <h1>Olá, mundo!</h1>
+    <p>Este é um servidor HTTP sem thread em Python.</p>
+</body>
+</html>
+"""
+
+class MeuManipulador(http.server.SimpleHTTPRequestHandler):
+    def do_GET(self):
+        print(f"Requisição recebida de: {self.client_address}")
+        print(f"Caminho solicitado: {self.path}")
+        for nome, valor in self.headers.items():
+            print(f"{nome}: {valor}")
+        
+        self.send_response(200)
+        self.send_header("Content-type", "text/html")
+        self.end_headers()
+        self.wfile.write(html_fixo.encode("utf-8"))
+
+endereco = ("", 8000)
+
+with http.server.HTTPServer(endereco, MeuManipulador) as httpd:
+    print("Servidor HTTP rodando na porta 8000...")
+    httpd.serve_forever()
+```
+## 1.2. Explicação do Código
+
+- Cria um servidor HTTP simples que responde com um conteúdo HTML fixo.
+
+- A classe MeuManipulador herda de SimpleHTTPRequestHandler e sobrescreve o método do_GET.
+
+- O servidor roda indefinidamente na porta 8000.
+
+- Sem o uso de threads, ele atende uma requisição por vez, bloqueando novas conexões até concluir a atual.
+
 
 ### 2. Experimento 1
 1. executar o servidor http, código abaixo **sem thread**, subseção 2.1.
@@ -232,7 +279,64 @@ fazer_requisicao_get()
     - Usamos `conexao.close()` para fechar a conexão.
 
 
-### 3. Experimento 2
+### 3. Experimento 2 - usando containers
+
+3.1. Criando um Dockerfile
+
+```python
+FROM python:3.10
+WORKDIR /app
+COPY servidor.py .
+CMD ["python", "servidor.py"]
+```
+3.2. Criando e executando o container
+
+1. Criar a imagem Docker:
+   `docker build -t servidor_http .`
+2. Executar o container:
+   `docker run -p 8000:8000 servidor_http`
+
+3.3. Testando o Servidor
+
+Usar um navegador ou curl http://localhost:8000 para testar a resposta do servidor.
+
+3.4. Análise do Comportamento
+
+- A execução em container permite maior portabilidade.
+
+- A sobrecarga depende do isolamento do container.
+
+- Sem thread, o servidor continua bloqueando conexões simultâneas.
+
+## Conclusão
+
+**1. Comportamento do Servidor sem Thread**
+
+   - 1 cliente: A resposta é rápida, pois o servidor atende um único cliente sem bloqueios.
+
+   - 2 clientes simultâneos: O segundo cliente precisa esperar o primeiro ser atendido.
+
+   - 5 clientes simultâneos: A latência é perceptível, pois as requisições são enfileiradas.
+
+   - 10 clientes simultâneos: O servidor fica congestionado, e as respostas demoram significativamente.
+
+**2. Comportamento do Servidor com Thread**
+
+   - 1 cliente: Mesmo desempenho do servidor sem thread.
+
+   - 2 clientes simultâneos: Atendidos simultaneamente, sem espera.
+
+   - 5 clientes simultâneos: Cada requisição é tratada em uma thread separada, mantendo a fluidez.
+
+   - 10 clientes simultâneos: A capacidade melhora significativamente, com menos atrasos perceptíveis.
+
+**3. Diferenças entre Servidores sem e com Threads**
+
+   - O servidor sem thread bloqueia novas requisições até concluir a atual, gerando maior latência.
+
+   - O servidor com thread permite atendimento simultâneo, tornando-o mais eficiente para cargas maiores.
+
+   - Para baixa carga, ambos funcionam bem, mas em cenários com múltiplos clientes, a versão com threads é muito mais responsiva.
 
 
 ## Links
